@@ -4,7 +4,6 @@ html, body{
     margin: 0;
     padding: 0;
     font-family: 'Varela Round', sans-serif;
-  
   }
   
   .box{
@@ -19,15 +18,14 @@ html, body{
    }
   .website-header{
     display:flex;
-  
+    
   }
    .website-header h1{
      color:white;
      margin:auto 250px; 
-     font-size: 60px;
-     
+     font-size: 60px; 
    }
-  
+
    .website-header img{
     width:250px;
     height:250px;
@@ -35,11 +33,10 @@ html, body{
   
    }
    main{
+  
      background-color: burlywood;
-     flex: 1;
    }
-  
-  
+
    .footer{
      background-color:grey;
      display:flex;
@@ -63,23 +60,31 @@ html, body{
      color:white;
    }
   
-   .Start{
-    position: relative;
-    width: 130px;
-    height: 50px;
-   }
-  
+.Start{
+  margin: 0 30px;
+     background-color: chartreuse;
+     width: 500px;
+     height: 400px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   } 
+
   .Start button{
     font-size: 20px;
+    padding: 15px 30px; 
     cursor: pointer;
   }
-  
+
   .Quizbox{
     width:500px;
     background: white;
     border:black;
+    margin: 0 30px;
+    opacity: 1;
   }
-  
+
   .Quizbox header{
     height:50px;
     padding: 0 30px;
@@ -93,11 +98,90 @@ html, body{
   }
   
   .Quizbox header .timer{
+    padding: 0 20px;
     display:flex;
-    
-  
-  
+   align-items: center;
+   justify-content: space-between;
+   background-color: blueviolet;
+    width: 200px;
+    height: 40px
   }
-   
+
+  .Quizbox header .timer .timersekunden{
+font-size: 20px;
+background-color: crimson;
+height: 30px;
+width: 35px;
+text-align: center;
+line-height:35px;
+border-radius: 50%;
+border: 1px solid black;
+  }
+
+  .Quizbox section{
+    padding: 25px 30px 20px 30px;
+    background-color: cadetblue;
+    border: 1px solid black;
+  }
+
+  .Quizbox section .fragetext{
+    font-size: 25px;
+  }
   
-  
+  .Quizbox section .antwortenliste{
+    padding:20px 0;
+    display:block;
+  }
+
+  section .antwortenliste .antwort{
+
+    background:rgb(202, 38, 38);
+    border: 1px solid yellow;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+
+    /*
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    */
+
+    cursor: pointer;
+  }
+  .antwortenliste .antwort:hover{
+    background: grey;
+    border-color: yellow;
+  }
+ 
+  .antwortenliste .antwort:last-child{
+    margin-bottom: 0px;
+  }
+
+  .Quizbox footer{
+    background-color: tomato;
+    height: 50px;
+    padding: 0 30px;
+    display: flex;
+   align-items: center;
+   border: 1px solid black;
+  }
+
+  .Quizbox footer .frageübrig span{
+    display: flex;
+    align-items: center;
+  }
+   footer .frageübrig span p{
+     padding: 0 5px;
+     font-size: 20px;    
+   }
+
+  .Fortschritt {
+    margin: 0 30px;
+    width: 300px;
+    height: 50px;
+    background-color: crimson;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+   }
+
