@@ -1,11 +1,12 @@
-//Alles wichtigen Klicks
+$(document).ready(function() {
 
-const Start = document.querySelector(".Start button");
-const Quizbox = document.querySelector(".Quizbox");
+    //Alles wichtigen Klicks
+    const Start = document.querySelector(".Start button");
+    const Quizbox = document.querySelector(".Quizbox");
 
-//Nachdem man auf Start Quiz klickt
+    //Nachdem man auf Start Quiz klickt
+    $('#start-btn').on('click', function() {
+        $('#quizbox').addClass("activeBox");
 
-Start.onclick = ()=>{
-    Quizbox.className.add ("activeBox");
-
-}
+    })
+})
