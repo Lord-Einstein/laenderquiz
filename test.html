@@ -21,9 +21,15 @@
 <body>
 
     <header>
-
-        <img src="images/00_Maskottchen.png" alt="logo">
-        <h1>Willkommen zum Länderquiz</h1>
+        <div>
+            <h1> <img src="images/00_Maskottchen.png" alt="logo">Willkommen zum Länderquiz</h1>
+        </div>
+        <div class="btn-group">
+            <button id="home" class="btn2">Home</button>
+            <button id="quiz" class="btn2">Quiz</button>
+            <button id="help" class="btn2">Help</button>
+            <button id="about" class="btn2">About</button>
+        </div>
 
     </header>
 
@@ -35,17 +41,24 @@
         </div>
 
         <div class="container" id="quiz-container">
-            <div id="progressbar">
-                <div id=progress></div>
-                <spanid="progress-lable">Fortschritt</span>
+
+            <div class="container" id="progress-container">
+                <div id="progressbar">
+                    <div id=progress></div>
+                </div>
+
+                <div id="progress-lable">
+                    Fortschritt
+                </div>
+
+
             </div>
 
-
-            <div id="quiz-header">
-                Hallo Quizheader
+            <div class="container" id="quiz-header">
+                Quizheader
             </div>
 
-            <div id="quiz-box">
+            <div class="container" id="quiz-box">
                 Quizbox
                 <div id="ant-container">
                     <div class="btn" id="antwort1">Antwort1</div>
@@ -54,6 +67,9 @@
                     <div class="btn" id="antwort4">Antwort4</div>
                 </div>
             </div>
+
+            <div class="btn" id="next-btn">Weiter</div>
+
         </div>
     </main>
 
