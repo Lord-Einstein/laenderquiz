@@ -127,18 +127,6 @@ $(document).ready(function() {
 
     //#endregion
 
-    //Alle wichtigen Klicks
-    const Start = document.querySelector(".Start button");
-    const Quizbox = document.querySelector(".Quizbox");
-
-    //Nachdem man auf Start Quiz klickt
-    /*
-     $('#start-btn').on('click', function() {
-         $('#quizbox').addClass("activeBox");
-
-     })
-     */
-
     //#region Map Functions
 
     function HL(id) {
@@ -159,6 +147,8 @@ $(document).ready(function() {
     //#endregion
 
 
+    ////#region map buttons
+
     //Buttons
     //Toggle germany
     $("#DEU").on('click', function() {
@@ -177,20 +167,42 @@ $(document).ready(function() {
         deactivateHL("DE");
     });
 
+    $("#toggleMap").on('click', function() {
+        $("#map").toggle();
+    });
+
+
+
+    ////#endregion
+
+
+    //Alle wichtigen Klicks
+    const Start = document.querySelector(".Start button");
+    const Quizbox = document.querySelector(".Quizbox");
+
+    //Nachdem man auf Start Quiz klickt
+    /*
+     $('#start-btn').on('click', function() {
+         $('#quizbox').addClass("activeBox");
+
+     })
+     */
+
     //QUIZ-FUNKTIONEN
     //notwendige variablen
-    //fragenzähler
-    var cnt = 1;
+
 
     //array für bereits beantwortete fragen anhand der ID
     var arr = [];
 
-    var korr_cnt = 0;
+    //fragenzähler
+    var cnt;
 
+    var korr_cnt;
     var x;
+    var answer;
 
-    var answer = 0;
-
+    //html element shortcuts
     var $quiz_header = $('#quiz-header')
     var $antwort1 = $('#antwort1')
     var $antwort2 = $('#antwort2')
@@ -209,6 +221,15 @@ $(document).ready(function() {
     //Quiz starten
     $('#start-btn').on('click', function() {
 
+        //init game
+        cnt = 1;
+        korr_cnt = 0;
+        x = 0;
+
+        $antwort1.removeClass("clicked")
+        $antwort2.removeClass("clicked")
+        $antwort3.removeClass("clicked")
+
         $f_nr.html(`Nr.: ${cnt}`)
 
         x = getRandomInt()
@@ -218,59 +239,59 @@ $(document).ready(function() {
         $antwort2.html(`${data[x].ANTWORT2}`)
         $antwort3.html(`${data[x].ANTWORT3}`)
 
-        choseAndCheckAnswer()
-
     })
 
+
+    $antwort1.on('click', function() {
+        $antwort1.addClass("clicked");
+
+        $antwort2.removeClass("clicked")
+        $antwort3.removeClass("clicked")
+        answer = 1;
+    })
+
+    $antwort2.on('click', function() {
+        $antwort2.addClass("clicked");
+
+        $antwort1.removeClass("clicked")
+        $antwort3.removeClass("clicked")
+        answer = 2;
+    })
+
+    $antwort3.on('click', function() {
+        $antwort3.addClass("clicked");
+
+        $antwort1.removeClass("clicked")
+        $antwort2.removeClass("clicked")
+        answer = 3;
+    })
+
+    //überprüft ob ausgewählte antwort richtig ist
+    $next_btn.on('click', function() {
+        if (answer == data[x].KORREKTE_ANTWORT) {
+            alert("korrekt")
+
+            korr_cnt++
+            $('#fcnt_k').text(korr_cnt)
+
+        } else {
+            alert("falsch")
+
+        }
+
+        $antwort1.removeClass("clicked")
+        $antwort2.removeClass("clicked")
+        $antwort3.removeClass("clicked")
+
+        cnt++
+        $f_nr.html(`Nr.: ${cnt}`)
+        nextQuestion()
+    })
 
     //ändert farbe von geklicktem button und weist der ausgewählten antwort wert zu
     function choseAndCheckAnswer() {
 
-        $antwort1.on('click', function() {
-            $antwort1.addClass("clicked");
 
-            $antwort2.removeClass("clicked")
-            $antwort3.removeClass("clicked")
-            answer = 1;
-        })
-        $antwort2.on('click', function() {
-            $antwort2.addClass("clicked");
-
-            $antwort1.removeClass("clicked")
-            $antwort3.removeClass("clicked")
-            answer = 2;
-        })
-        $antwort3.on('click', function() {
-            $antwort3.addClass("clicked");
-
-            $antwort1.removeClass("clicked")
-            $antwort2.removeClass("clicked")
-            answer = 3;
-        })
-
-        //überprüft ob ausgewählte antwort richtig ist
-        $next_btn.on('click', function() {
-            if (answer == data[x].KORREKTE_ANTWORT) {
-                alert("korrekt")
-
-                korr_cnt++
-                $('#fcnt_k').text(korr_cnt)
-
-                //nextQuestion()
-            } else {
-                alert("falsch")
-
-                //nextQuestion()
-            }
-
-            $antwort1.removeClass("clicked")
-            $antwort2.removeClass("clicked")
-            $antwort3.removeClass("clicked")
-
-            cnt++
-            $f_nr.html(`Nr.: ${cnt}`)
-            nextQuestion()
-        })
     }
 
 
@@ -281,7 +302,6 @@ $(document).ready(function() {
         $antwort1.html(`${data[x].ANTWORT1}`)
         $antwort2.html(`${data[x].ANTWORT2}`)
         $antwort3.html(`${data[x].ANTWORT3}`)
-        choseAndCheckAnswer()
     }
 
 
