@@ -3,20 +3,54 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Laenderquiz</title>
-    <link rel="stylesheet" href="website_styles.css" type="text/css">
+    <title>Länderquiz</title>
 
-
-
-    <!--Font awesome icons: social media-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-
-    <!--Fontstyle-->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+    <style>
+        body {
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+        
+        #chartdiv {
+            width: 1000px;
+            height: 1000px;
+        }
+        
+        #container {
+            display: flex;
+        }
+        
+        .btn-map {
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 3rem;
+            width: 10rem;
+            margin: 10px;
+            border: 4px solid crimson;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        .btn.map:hover {
+            box-shadow: 2px 3px 5px grey;
+            background: #db3f5e;
+            color: white;
+            transition: 0.3s;
+        }
+        
+        #active {
+            background-color: crimson;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 3rem;
+            width: 10rem;
+            margin: 10px;
+            border-radius: 10px;
+            width: 30rem;
+        }
+    </style>
 
     <!-- Resources -->
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
@@ -27,8 +61,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <!-- \|/ Don't touch \|/ -->
-
+    <div id="chartdiv"></div>
 
     <script>
         //Create theme
@@ -145,80 +178,59 @@
         highlight.properties.fill = am4core.color("#88B04B");
         highlight.properties.hoverable = false;
         highlight.properties.clickable = false;
-    </script>
 
+
+
+
+        $(document).ready(function() {
+
+            function highlight(id) {
+                if (polygonSeries.getPolygonById(id).properties.hoverable == true) {
+                    activateHighlight(id);
+                } else {
+                    deactivateHighlight(id);
+                }
+            };
+
+            function activateHighlight(id) {
+                polygonSeries.getPolygonById(id).setState("highlight");
+            }
+
+            function deactivateHighlight(id) {
+                polygonSeries.getPolygonById(id).setState("default");
+            }
+
+            //Toggle germany
+            $("#DEU").on('click', function() {
+                polygonSeries.getPolygonById("DE").isActive = !polygonSeries.getPolygonById("DE").isActive;
+            });
+
+            $("#toggleHL").on('click', function() {
+                highlight("DE");
+            });
+
+            $("#activateHL").on('click', function() {
+                activateHighlight("DE");
+            });
+
+            $("#deactivateHL").on('click', function() {
+                deactivateHighlight("DE");
+            });
+
+        });
+    </script>
 </head>
 
 <body>
 
-    <header>
-        <div>
-            <h1> <img src="images/00_Maskottchen.png" alt="logo">Willkommen zum Länderquiz</h1>
-        </div>
-        <div class="btn-group">
-            <button id="home" class="btn2">Home</button>
-            <button id="quiz" class="btn2">Quiz</button>
-            <button id="help" class="btn2">Help</button>
-            <button id="about" class="btn2">About</button>
-        </div>
-
-    </header>
-
-
-    <main>
-
-        <div class="container" id="map">
-            <div id="chartdiv"></div>
-        </div>
-
-        <div class="container" id="quiz-container">
-
-            <div class="container" id="progress-container">
-                <div id="progressbar">
-                    <div id=progress></div>
-                </div>
-
-                <div id="progress-lable">
-                    Fortschritt
-                </div>
-
-
-            </div>
-
-            <div class="container" id="quiz-header">
-                Quizheader
-            </div>
-
-            <div class="container" id="quiz-box">
-                Quizbox
-                <div id="ant-container">
-                    <div class="btn" id="antwort1">Antwort1</div>
-                    <div class="btn" id="antwort2">Antwort2</div>
-                    <div class="btn" id="antwort3">Antwort3</div>
-                </div>
-            </div>
-
-            <div class="btn" id="next-btn">Weiter</div>
-
-        </div>
-    </main>
-
-
-    <!--
-
-    <footer>
-        <p>Copyright &copy; 2021 HSRW Länderquiz
-        </p>
-
-        
-        <div id="sozialemedien">
-            <a href="https://de-de.facebook.com/ "><i class="fab fa-facebook-square "></i></a>
-            <a href="https://twitter.com/ "><i class="fab fa-twitter-square "></i></a>
-            <a href="https://www.instagram.com "><i class="fab fa-instagram-square "></i></a>
-        </div>
-    </footer>
--->
-
+    <div id="container">
+        <div class="btn-map" id="DEU">Deutschland</div>
+        <div class="btn-map" id="toggleHL">Toggle Highlight</div>
+        <div class="btn-map" id="activateHL">Activate Highlight</div>
+        <div class="btn-map" id="deactivateHL">Deactivate Highlight</div>
+        <div class="btn-map" id="getActive">Get Active</div>
+    </div>
+    <div id="active"></div>
 </body>
 
 </html>
