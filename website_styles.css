@@ -155,11 +155,11 @@ footer p {
     justify-content: center;
     align-items: center;
     height: 3em;
-    width: 6em;
+    width: 30rem;
     margin: 10px;
     color: white;
     background-color: tomato;
-    font-size: 1.5rem;
+    font-size: 1.0rem;
     border-radius: 8px;
     cursor: pointer;
     box-shadow: 1px 2px 3px #313131;
@@ -220,7 +220,7 @@ footer p {
     cursor: pointer;
 }
 
-.btn.map:hover {
+.btn-map:hover {
     box-shadow: 2px 3px 5px grey;
     background: #db3f5e;
     color: white;
@@ -237,4 +237,18 @@ footer p {
     margin: 10px;
     border-radius: 10px;
     width: 30rem;
+}
+
+#landing-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+.clicked {
+    background-color: lightslategray;
 }

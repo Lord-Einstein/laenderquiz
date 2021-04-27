@@ -26,6 +26,8 @@
     <script src="https://www.amcharts.com/lib/4/geodata/lang/DE.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
 
     <!-- \|/ Don't touch \|/ -->
 
@@ -179,18 +181,22 @@
                 </div>
 
                 <div id="progress-lable">
-                    Fortschritt
+
+
+                    <!-- temporäres Zeugs-->
+                    <p id="f_nr">0</p>
+                    <p></p><span id="fcnt"><span id="fcnt_k">0</span>/10</span>
+                    <button id="start-btn" class="btn">START</button>
                 </div>
 
 
             </div>
 
             <div class="container" id="quiz-header">
-                Quizheader
+
             </div>
 
             <div class="container" id="quiz-box">
-                Quizbox
                 <div id="ant-container">
                     <div class="btn" id="antwort1">Antwort1</div>
                     <div class="btn" id="antwort2">Antwort2</div>
