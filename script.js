@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     //#region Init map
 
@@ -63,7 +63,7 @@ $(document).ready(function() {
 
 
     //Select countries
-    polygonSeries.include = ["AD", "AL", "AT", "BA", "BE", "BG", "BY", "CH", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "GB", "GR", "HR", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RS", "RU", "SE", "SI", "SK", "TR", "UA", "XK", "", ];
+    polygonSeries.include = ["AD", "AL", "AT", "BA", "BE", "BG", "BY", "CH", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "GB", "GR", "HR", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RS", "RU", "SE", "SI", "SK", "TR", "UA", "XK", "",];
 
     // Create hover state, set fill and stroke color, set float
     var hoverState = polygonTemplate.states.create("hover");
@@ -84,7 +84,7 @@ $(document).ready(function() {
     hoverShadow.dy = 4;
 
     //Fix hover outlines
-    polygonSeries.mapPolygons.template.events.on("over", function(event) {
+    polygonSeries.mapPolygons.template.events.on("over", function (event) {
         event.target.zIndex = Number.MAX_VALUE;
         event.target.toFront();
     });
@@ -94,7 +94,7 @@ $(document).ready(function() {
     activeState.properties.fill = chart.colors.getIndex(4);
 
     // Create an event to toggle "active" state, prints the name
-    polygonTemplate.events.on("hit", function(ev) {
+    polygonTemplate.events.on("hit", function (ev) {
         ev.target.isActive = !ev.target.isActive;
 
         // get object info
@@ -151,23 +151,23 @@ $(document).ready(function() {
 
     //Buttons
     //Toggle germany
-    $("#DEU").on('click', function() {
+    $("#DEU").on('click', function () {
         polygonSeries.getPolygonById("DE").isActive = !polygonSeries.getPolygonById("DE").isActive;
     });
 
-    $("#toggleHL").on('click', function() {
+    $("#toggleHL").on('click', function () {
         HL("DE");
     });
 
-    $("#activateHL").on('click', function() {
+    $("#activateHL").on('click', function () {
         activateHL("DE");
     });
 
-    $("#deactivateHL").on('click', function() {
+    $("#deactivateHL").on('click', function () {
         deactivateHL("DE");
     });
 
-    $("#toggleMap").on('click', function() {
+    $("#toggleMap").on('click', function () {
         $("#map").toggle();
     });
 
@@ -219,7 +219,7 @@ $(document).ready(function() {
     }
 
     //Quiz starten
-    $('#start-btn').on('click', function() {
+    $('#start-btn').on('click', function () {
 
         //init game
         cnt = 1;
@@ -242,7 +242,7 @@ $(document).ready(function() {
     })
 
 
-    $antwort1.on('click', function() {
+    $antwort1.on('click', function () {
         $antwort1.addClass("clicked");
 
         $antwort2.removeClass("clicked")
@@ -250,7 +250,7 @@ $(document).ready(function() {
         answer = 1;
     })
 
-    $antwort2.on('click', function() {
+    $antwort2.on('click', function () {
         $antwort2.addClass("clicked");
 
         $antwort1.removeClass("clicked")
@@ -258,7 +258,7 @@ $(document).ready(function() {
         answer = 2;
     })
 
-    $antwort3.on('click', function() {
+    $antwort3.on('click', function () {
         $antwort3.addClass("clicked");
 
         $antwort1.removeClass("clicked")
@@ -267,8 +267,39 @@ $(document).ready(function() {
     })
 
     //überprüft ob ausgewählte antwort richtig ist
-    $next_btn.on('click', function() {
+    $next_btn.on('click', function () {
+
+        $antwort1.removeClass("clicked")
+        $antwort2.removeClass("clicked")
+        $antwort3.removeClass("clicked")
+        
         if (answer == data[x].KORREKTE_ANTWORT) {
+            
+
+            switch (x) {
+                case 1:
+                    $antwort1.addClass("correct")
+                    $antwort2.addClass("incorrect")
+                    $antwort3.addClass("incorrect")
+
+                    break;
+
+                case 2:
+                    $antwort1.addClass("incorrect")
+                    $antwort2.addClass("correct")
+                    $antwort3.addClass("incorrect")
+
+                    break;
+
+                case 3:
+
+                    $antwort1.addClass("incorrect")
+                    $antwort2.addClass("incorrect")
+                    $antwort3.addClass("correct")
+
+                    break;
+
+            }
             alert("korrekt")
 
             korr_cnt++
@@ -278,14 +309,16 @@ $(document).ready(function() {
             alert("falsch")
 
         }
+      
 
-        $antwort1.removeClass("clicked")
-        $antwort2.removeClass("clicked")
-        $antwort3.removeClass("clicked")
+        cnt++;
+        $f_nr.html(`Nr.: ${cnt}`);
 
-        cnt++
-        $f_nr.html(`Nr.: ${cnt}`)
-        nextQuestion()
+        if (cnt < 11) {
+            nextQuestion()
+        } else {
+            alert("quiz-beendet")
+        };
     })
 
     //ändert farbe von geklicktem button und weist der ausgewählten antwort wert zu

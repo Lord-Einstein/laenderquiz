@@ -258,3 +258,11 @@ a:visited {
 .clicked {
     background-color: lightslategray;
 }
+
+.correct{
+    background-color: green;
+}
+
+.incorrect{
+    background-color: red;
+}
