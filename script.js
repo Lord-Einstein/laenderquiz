@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     //#region Init map
 
@@ -63,7 +63,7 @@ $(document).ready(function () {
 
 
     //Select countries
-    polygonSeries.include = ["AD", "AL", "AT", "BA", "BE", "BG", "BY", "CH", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "GB", "GR", "HR", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RS", "RU", "SE", "SI", "SK", "TR", "UA", "XK", "",];
+    polygonSeries.include = ["AD", "AL", "AT", "BA", "BE", "BG", "BY", "CH", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "GB", "GR", "HR", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RS", "RU", "SE", "SI", "SK", "TR", "UA", "XK", "", ];
 
     // Create hover state, set fill and stroke color, set float
     var hoverState = polygonTemplate.states.create("hover");
@@ -84,7 +84,7 @@ $(document).ready(function () {
     hoverShadow.dy = 4;
 
     //Fix hover outlines
-    polygonSeries.mapPolygons.template.events.on("over", function (event) {
+    polygonSeries.mapPolygons.template.events.on("over", function(event) {
         event.target.zIndex = Number.MAX_VALUE;
         event.target.toFront();
     });
@@ -94,7 +94,7 @@ $(document).ready(function () {
     activeState.properties.fill = chart.colors.getIndex(4);
 
     // Create an event to toggle "active" state, prints the name
-    polygonTemplate.events.on("hit", function (ev) {
+    polygonTemplate.events.on("hit", function(ev) {
         ev.target.isActive = !ev.target.isActive;
 
         // get object info
@@ -129,7 +129,7 @@ $(document).ready(function () {
 
     //#region Map Functions
 
-    function HL(id) {
+    function toggleHL(id) {
         if (polygonSeries.getPolygonById(id).properties.hoverable == true) {
             activateHL(id);
         } else {
@@ -151,26 +151,25 @@ $(document).ready(function () {
 
     //Buttons
     //Toggle germany
-    $("#DEU").on('click', function () {
+    $("#DEU").on('click', function() {
         polygonSeries.getPolygonById("DE").isActive = !polygonSeries.getPolygonById("DE").isActive;
     });
 
-    $("#toggleHL").on('click', function () {
-        HL("DE");
+    $("#toggleHL").on('click', function() {
+        toggleHL("DE");
     });
 
-    $("#activateHL").on('click', function () {
+    $("#activateHL").on('click', function() {
         activateHL("DE");
     });
 
-    $("#deactivateHL").on('click', function () {
+    $("#deactivateHL").on('click', function() {
         deactivateHL("DE");
     });
 
-    $("#toggleMap").on('click', function () {
+    $("#toggleMap").on('click', function() {
         $("#map").toggle();
     });
-
 
 
     ////#endregion
@@ -180,161 +179,181 @@ $(document).ready(function () {
     const Start = document.querySelector(".Start button");
     const Quizbox = document.querySelector(".Quizbox");
 
-    //Nachdem man auf Start Quiz klickt
-    /*
-     $('#start-btn').on('click', function() {
-         $('#quizbox').addClass("activeBox");
-
-     })
-     */
-
     //QUIZ-FUNKTIONEN
     //notwendige variablen
-
-
-    //array für bereits beantwortete fragen anhand der ID
-    var arr = [];
 
     //fragenzähler
     var cnt;
 
     var korr_cnt;
-    var x;
+
     var answer;
+    var qNum;
+    var questionsDone = [];
 
     //html element shortcuts
     var $quiz_header = $('#quiz-header')
-    var $antwort1 = $('#antwort1')
-    var $antwort2 = $('#antwort2')
-    var $antwort3 = $('#antwort3')
-    var $next_btn = $('#next-btn')
+    var $antwort1 = $('#antwort1');
+    var $antwort2 = $('#antwort2');
+    var $antwort3 = $('#antwort3');
+    var $next_btn = $('#next-btn');
 
-    var $f_nr = $('#f_nr')
+    var $f_nr = $('#f_nr');
 
     //fragen-randomisierer
     function getRandomInt() {
-        var min = 0
-        var max = 120
+        var min = 0;
+        var max = 121;
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
+    function getQuestion() {
+        var randInt;
+        do {
+            randInt = getRandomInt();
+            questionsDone.push(randInt);
+        } while (!questionsDone.includes(randInt));
+
+        return randInt;
+    }
+
     //Quiz starten
-    $('#start-btn').on('click', function () {
+    $('#start-btn').on('click', function() {
 
         //init game
         cnt = 1;
         korr_cnt = 0;
-        x = 0;
 
-        $antwort1.removeClass("clicked")
-        $antwort2.removeClass("clicked")
-        $antwort3.removeClass("clicked")
+        //resets the buttons
+        $antwort1.removeClass("clicked");
+        $antwort2.removeClass("clicked");
+        $antwort3.removeClass("clicked");
 
-        $f_nr.html(`Nr.: ${cnt}`)
+        $antwort1.removeClass("correct");
+        $antwort2.removeClass("correct");
+        $antwort3.removeClass("correct");
 
-        x = getRandomInt()
+        $antwort1.removeClass("incorrect");
+        $antwort2.removeClass("incorrect");
+        $antwort3.removeClass("incorrect");
 
-        $quiz_header.html(`${data[x].FRAGE}`)
-        $antwort1.html(`${data[x].ANTWORT1}`)
-        $antwort2.html(`${data[x].ANTWORT2}`)
-        $antwort3.html(`${data[x].ANTWORT3}`)
+        //sets the question counter
+        $f_nr.html(`Nr.: ${cnt}`);
+
+        $("#progress").width(10 + "%");
+
+        nextQuestion();
 
     })
 
-
-    $antwort1.on('click', function () {
+    //selects the clicked answer
+    $antwort1.on('click', function() {
         $antwort1.addClass("clicked");
-
-        $antwort2.removeClass("clicked")
-        $antwort3.removeClass("clicked")
+        $antwort2.removeClass("clicked");
+        $antwort3.removeClass("clicked");
         answer = 1;
     })
 
-    $antwort2.on('click', function () {
+    $antwort2.on('click', function() {
         $antwort2.addClass("clicked");
-
-        $antwort1.removeClass("clicked")
-        $antwort3.removeClass("clicked")
+        $antwort1.removeClass("clicked");
+        $antwort3.removeClass("clicked");
         answer = 2;
     })
 
-    $antwort3.on('click', function () {
+    $antwort3.on('click', function() {
         $antwort3.addClass("clicked");
-
-        $antwort1.removeClass("clicked")
-        $antwort2.removeClass("clicked")
+        $antwort1.removeClass("clicked");
+        $antwort2.removeClass("clicked");
         answer = 3;
     })
 
-    //überprüft ob ausgewählte antwort richtig ist
-    $next_btn.on('click', function () {
 
-        $antwort1.removeClass("clicked")
-        $antwort2.removeClass("clicked")
-        $antwort3.removeClass("clicked")
-        
-        if (answer == data[x].KORREKTE_ANTWORT) {
-            
+    //Überprüfen button
+    $("#check-btn").on('click', function() {
+        //shows next btn and hides check btn
+        $("#next-btn").toggle();
+        $("#check-btn").toggle();
 
-            switch (x) {
-                case 1:
-                    $antwort1.addClass("correct")
-                    $antwort2.addClass("incorrect")
-                    $antwort3.addClass("incorrect")
+        //get the id of the correct answer
+        corAns = data[qNum].KORREKTE_ANTWORT;
 
-                    break;
+        //sets the visual feedback on answer buttons
+        switch (corAns) {
+            case "1":
+                $antwort1.addClass("correct");
+                $antwort2.addClass("incorrect");
+                $antwort3.addClass("incorrect");
+                break;
 
-                case 2:
-                    $antwort1.addClass("incorrect")
-                    $antwort2.addClass("correct")
-                    $antwort3.addClass("incorrect")
+            case "2":
+                $antwort1.addClass("incorrect");
+                $antwort2.addClass("correct");
+                $antwort3.addClass("incorrect");
+                break;
 
-                    break;
+            case "3":
+                $antwort1.addClass("incorrect");
+                $antwort2.addClass("incorrect");
+                $antwort3.addClass("correct");
+                break;
+        };
 
-                case 3:
+        //incements the correct answer counter
+        if (answer == corAns) {
+            korr_cnt++;
+            $('#fcnt_k').text(korr_cnt);
+        };
 
-                    $antwort1.addClass("incorrect")
-                    $antwort2.addClass("incorrect")
-                    $antwort3.addClass("correct")
+        var progWidth = cnt * 10;
+        $("#progress").width(progWidth + "%");
+    });
 
-                    break;
 
-            }
-            alert("korrekt")
+    //reset the quizbox and go to next question
+    $("#next-btn").on('click', function() {
 
-            korr_cnt++
-            $('#fcnt_k').text(korr_cnt)
+        $antwort1.removeClass("correct");
+        $antwort2.removeClass("correct");
+        $antwort3.removeClass("correct");
 
-        } else {
-            alert("falsch")
+        $antwort1.removeClass("incorrect");
+        $antwort2.removeClass("incorrect");
+        $antwort3.removeClass("incorrect");
 
-        }
-      
+        $antwort1.removeClass("clicked");
+        $antwort2.removeClass("clicked");
+        $antwort3.removeClass("clicked");
+
+
+        $("#next-btn").toggle();
+        $("#check-btn").toggle();
+
+        deactivateHL(data[qNum].LAND);
 
         cnt++;
         $f_nr.html(`Nr.: ${cnt}`);
 
+
+        //limit quiz to 10 questions
         if (cnt < 11) {
-            nextQuestion()
+            nextQuestion();
         } else {
-            alert("quiz-beendet")
+            alert("quiz-beendet");
         };
     })
 
-    //ändert farbe von geklicktem button und weist der ausgewählten antwort wert zu
-    function choseAndCheckAnswer() {
-
-
-    }
 
 
     //sucht die nächste frage aus
     function nextQuestion() {
-        x = getRandomInt();
-        $quiz_header.html(`${data[x].FRAGE}`)
-        $antwort1.html(`${data[x].ANTWORT1}`)
-        $antwort2.html(`${data[x].ANTWORT2}`)
-        $antwort3.html(`${data[x].ANTWORT3}`)
+        qNum = getQuestion();
+        $quiz_header.html(`${data[qNum].FRAGE}`);
+        $antwort1.html(`${data[qNum].ANTWORT1}`);
+        $antwort2.html(`${data[qNum].ANTWORT2}`);
+        $antwort3.html(`${data[qNum].ANTWORT3}`);
+
+        activateHL(data[qNum].LAND);
     }
 
 

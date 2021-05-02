@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Laenderquiz</title>
+    <link rel="stylesheet" href="website_styles.css" type="text/css">
+
+
+
+    <!--Font awesome icons: social media-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+    <!--Fontstyle-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <!-- Resources -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/geodata/worldHigh.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="https://www.amcharts.com/lib/4/geodata/lang/DE.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1> <img src="images/00_Maskottchen.png" alt="logo">Willkommen zum Länderquiz</h1>
+        </div>
+        <div class="btn-group">
+            <a href="index.html" id="start" class="btn2">Startseite</a>
+            <a href="quiz.html" id="quiz" class="btn2">Quiz</a>
+            <a href="rewards.html" id="rewards" class="btn2">Preise</a>
+            <a href="help.html" id="help" class="btn2">Hilfe</a>
+            <a href="about.html" id="about" class="btn2">Über uns</a>
+        </div>
+    </header>
+
+
+    <main>
+
+        <div class="container" id="map">
+            <div id="chartdiv"></div>
+        </div>
+
+
+        <div class="container" id="quiz-container">
+
+            <div class="container" id="progress-container">
+                <div id="progressbar">
+                    <div id=progress></div>
+                </div>
+
+                <div id="progress-lable">
+
+
+                    <!-- temporäres Zeugs-->
+                    <p id="f_nr">0</p>
+                    <p></p><span id="fcnt"><span id="fcnt_k">0</span>/10</span>
+                    <button id="start-btn" class="btn">START</button>
+                </div>
+
+
+            </div>
+
+            <div class="container" id="quiz-header">
+
+            </div>
+
+            <div class="container" id="quiz-box">
+                <div id="ant-container">
+                    <div class="btn" id="antwort1">Antwort1</div>
+                    <div class="btn" id="antwort2">Antwort2</div>
+                    <div class="btn" id="antwort3">Antwort3</div>
+                </div>
+            </div>
+            <div class="btn" id="check-btn">Überprüfen</div>
+            <div class="btn" id="next-btn" style="display: none;">Weiter</div>
+
+
+        </div>
+    </main>
+
+    <div id="btn-bar">
+        <div class="btn-map" id="DEU">Deutschland</div>
+        <div class="btn-map" id="toggleHL">Toggle Highlight</div>
+        <div class="btn-map" id="activateHL">Activate Highlight</div>
+        <div class="btn-map" id="deactivateHL">Deactivate Highlight</div>
+        <div class="btn-map" id="toggleMap">Toggle Map</div>
+    </div>
+    <!--
+
+    <footer>
+        <p>Copyright &copy; 2021 HSRW Länderquiz
+        </p>
+
+        
+        <div id="sozialemedien">
+            <a href="https://de-de.facebook.com/ "><i class="fab fa-facebook-square "></i></a>
+            <a href="https://twitter.com/ "><i class="fab fa-twitter-square "></i></a>
+            <a href="https://www.instagram.com "><i class="fab fa-instagram-square "></i></a>
+        </div>
+    </footer>
+-->
+
+</body>
+
+
+</html>

@@ -10,6 +10,7 @@ body {
     flex-direction: column;
     margin: 0;
     background-color: mediumaquamarine;
+    width: 100%;
 }
 
 main {
@@ -19,6 +20,7 @@ main {
 }
 
 header {
+    width: 100%;
     background-color: blue;
     display: flex;
     flex-direction: column;
@@ -39,12 +41,18 @@ footer {
     background-color: grey;
     font-size: 0.7rem;
     display: flex;
-    height: 5vh;
-    position: relative;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4em;
 }
 
 footer p {
-    margin: auto 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em 2em;
     color: white;
 }
 
@@ -58,7 +66,7 @@ footer p {
     font-size: 30px;
     text-align: right;
     flex-grow: 1;
-    margin: 20px 30px;
+    padding: 20px 30px;
 }
 
 #sozialemedien div {
@@ -134,7 +142,7 @@ footer p {
 }
 
 #progress {
-    width: 60%;
+    width: 0%;
     height: 100%;
     background-color: violet;
 }
@@ -143,10 +151,6 @@ footer p {
     display: flex;
     justify-content: center;
     padding-top: 5px;
-}
-
-#next-btn {
-    width: 90%;
 }
 
 .btn {
@@ -178,11 +182,12 @@ footer p {
 
 .btn2 {
     flex-grow: 1;
+    text-align: center;
+    font-size: 1.25rem;
     background-color: #4CAF50;
     border: 1px solid green;
     color: white;
-    padding: 15px 32px;
-    font-size: 16px;
+    padding: 0.8em;
     cursor: pointer;
 }
 
@@ -192,6 +197,14 @@ footer p {
 
 .btn2:hover {
     background-color: #3e8e41;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
 }
 
 
@@ -251,18 +264,14 @@ footer p {
     justify-content: center;
 }
 
-a:visited {
-    text-decoration: none;
-}
-
 .clicked {
-    background-color: lightslategray;
+    border: 3px solid black;
 }
 
-.correct{
+.correct {
     background-color: green;
 }
 
-.incorrect{
+.incorrect {
     background-color: red;
 }
