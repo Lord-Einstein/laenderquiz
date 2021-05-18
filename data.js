@@ -21,7 +21,7 @@ data = [{
     {
         "ID": "3",
         "LAND": "IS",
-        "FRAGE": "Wie viele aktive Vulkane gibt es in island?",
+        "FRAGE": "Wie viele aktive Vulkane gibt es in Island?",
         "FRAGE_TYP": "MC",
         "ANTWORT1": "~20 Stück",
         "ANTWORT2": "~30 Stück",
@@ -95,7 +95,7 @@ data = [{
         "FRAGE_TYP": "MC",
         "ANTWORT1": "Elisabeth I.",
         "ANTWORT2": "Elisabeth II.",
-        "ANTWORT3": "Elisabeth II.",
+        "ANTWORT3": "Elisabeth III.",
         "KORREKTE_ANTWORT": "2"
     },
     {
@@ -801,7 +801,7 @@ data = [{
     {
         "ID": "81",
         "LAND": "MK",
-        "FRAGE": "In welchem jahr hat das land Marzedonien seinen Namen zu Nordmazedonien geändert?",
+        "FRAGE": "In welchem Jahr hat das Land Marzedonien seinen Namen zu Nordmazedonien geändert?",
         "FRAGE_TYP": "MC",
         "ANTWORT1": "1956",
         "ANTWORT2": "1989",

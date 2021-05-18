@@ -7,33 +7,50 @@ $(document).ready(function() {
         if (target instanceof am4core.ColorSet) {
             target.list = [
                 // 0 Outline color
-                am4core.color("#ffffff"),
+                am4core.color('#0A1128'),
                 // 1 Background color
-                am4core.color("#363945"),
+                am4core.color('#001F54'),
                 // 2 Primary color
-                am4core.color("#672E3B"),
+                am4core.color('#FB9902'),
                 // 3 Hover color
-                am4core.color("#9e475b"),
+                am4core.color('#FDAC53'),
                 // 4 Active color
-                am4core.color("#6395F2"),
+                am4core.color('#63730B'),
                 // 5 Active hover color
-                am4core.color("#1258DC"),
+                am4core.color('#1258DC'),
                 // 6 Highlight state color
-                am4core.color("#88B04B")
+                am4core.color('#99E46B')
             ];
         }
     };
+
+    /*
+    // 0 Outline color
+                    am4core.color('#ffffff'),
+                    // 1 Background color
+                    am4core.color('#363945'),
+                    // 2 Primary color
+                    am4core.color('#672E3B'),
+                    // 3 Hover color
+                    am4core.color('#9e475b'),
+                    // 4 Active color
+                    am4core.color('#6395F2'),
+                    // 5 Active hover color
+                    am4core.color('#1258DC'),
+                    // 6 Highlight state color
+                    am4core.color('#88B04B')
+    */
 
     //Applying themes
     am4core.useTheme(am4themes_animated);
     am4core.useTheme(am4themes_myTheme);
 
     // Create map instance
-    var chart = am4core.create("chartdiv", am4maps.MapChart);
+    var chart = am4core.create('chartdiv', am4maps.MapChart);
 
     // Create map instance
     var chart = am4core.create(
-        document.getElementById("chartdiv"),
+        document.getElementById('chartdiv'),
         am4maps.MapChart
     );
 
@@ -56,17 +73,17 @@ $(document).ready(function() {
 
     // Configure series
     var polygonTemplate = polygonSeries.mapPolygons.template;
-    polygonTemplate.tooltipText = "{name} : {id}";
+    polygonTemplate.tooltipText = '{name} : {id}';
     polygonTemplate.stroke = chart.colors.getIndex(0);
     polygonTemplate.properties.strokeWidth = 1;
     polygonTemplate.fill = chart.colors.getIndex(2);
 
 
     //Select countries
-    polygonSeries.include = ["AD", "AL", "AT", "BA", "BE", "BG", "BY", "CH", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "GB", "GR", "HR", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RS", "RU", "SE", "SI", "SK", "TR", "UA", "XK", "", ];
+    polygonSeries.include = ['AD', 'AL', 'AT', 'BA', 'BE', 'BG', 'BY', 'CH', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU', 'IE', 'IS', 'IT', 'LT', 'LU', 'LV', 'MD', 'ME', 'MK', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'RU', 'SE', 'SI', 'SK', 'TR', 'UA', 'XK', '', ];
 
     // Create hover state, set fill and stroke color, set float
-    var hoverState = polygonTemplate.states.create("hover");
+    var hoverState = polygonTemplate.states.create('hover');
     hoverState.properties.fill = chart.colors.getIndex(3);
     hoverState.properties.stroke = chart.colors.getIndex(3).lighten(0.6);
     hoverState.properties.strokeWidth = 3;
@@ -79,22 +96,23 @@ $(document).ready(function() {
 
     // Slightly shift the shadow and make it more prominent on hover
     var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
-    hoverShadow.opacity = 1;
+    hoverShadow.opacity = 0.5;
     hoverShadow.dx = 2;
     hoverShadow.dy = 4;
 
     //Fix hover outlines
-    polygonSeries.mapPolygons.template.events.on("over", function(event) {
+    polygonSeries.mapPolygons.template.events.on('over', function(event) {
         event.target.zIndex = Number.MAX_VALUE;
         event.target.toFront();
     });
 
+    /*
     // Create active state
-    var activeState = polygonTemplate.states.create("active");
+    var activeState = polygonTemplate.states.create('active');
     activeState.properties.fill = chart.colors.getIndex(4);
 
-    // Create an event to toggle "active" state, prints the name
-    polygonTemplate.events.on("hit", function(ev) {
+    // Create an event to toggle 'active' state, prints the name
+    polygonTemplate.events.on('hit', function(ev) {
         ev.target.isActive = !ev.target.isActive;
 
         // get object info
@@ -102,9 +120,10 @@ $(document).ready(function() {
     })
 
     // Create hover active state and set alternative fill color
-    var hoverActive = polygonTemplate.states.create("hoverActive");
+    var hoverActive = polygonTemplate.states.create('hoverActive');
     hoverActive.properties.fill = chart.colors.getIndex(5);
     hoverActive.properties.stroke = chart.colors.getIndex(5).lighten(0.6);
+    */
 
     // Disable zoom and pan
     var zoomLvl = 5.5;
@@ -120,7 +139,7 @@ $(document).ready(function() {
         longitude: 7,
     };
 
-    var highlight = polygonTemplate.states.create("highlight");
+    var highlight = polygonTemplate.states.create('highlight');
     highlight.properties.fill = chart.colors.getIndex(6);
     highlight.properties.hoverable = false;
     highlight.properties.clickable = false;
@@ -147,51 +166,47 @@ $(document).ready(function() {
     //#endregion
 
 
-    ////#region map buttons
+    //#region map buttons
 
     //Buttons
     //Toggle germany
-    $("#DEU").on('click', function() {
-        polygonSeries.getPolygonById("DE").isActive = !polygonSeries.getPolygonById("DE").isActive;
+    $('#DEU').on('click', function() {
+        polygonSeries.getPolygonById('DE').isActive = !polygonSeries.getPolygonById('DE').isActive;
     });
 
-    $("#toggleHL").on('click', function() {
-        toggleHL("DE");
+    $('#toggleHL').on('click', function() {
+        toggleHL('DE');
     });
 
-    $("#activateHL").on('click', function() {
-        activateHL("DE");
+    $('#activateHL').on('click', function() {
+        activateHL('DE');
     });
 
-    $("#deactivateHL").on('click', function() {
-        deactivateHL("DE");
+    $('#deactivateHL').on('click', function() {
+        deactivateHL('DE');
     });
 
-    $("#toggleMap").on('click', function() {
-        $("#map").toggle();
+    $('#toggleMap').on('click', function() {
+        $('#map').toggle();
     });
 
 
-    ////#endregion
-
-
-    //Alle wichtigen Klicks
-    const Start = document.querySelector(".Start button");
-    const Quizbox = document.querySelector(".Quizbox");
+    //#endregion
 
     //QUIZ-FUNKTIONEN
-    //notwendige variablen
 
     //fragenzähler
     var cnt;
 
-    var korr_cnt;
+    var corr_cnt;
+
+    var qCount = 5;
 
     var answer;
     var qNum;
-    var questionsDone = [];
+    var questionsDone = new Set();
 
-    //html element shortcuts
+    //set html element shortcuts
     var $quiz_header = $('#quiz-header')
     var $antwort1 = $('#antwort1');
     var $antwort2 = $('#antwort2');
@@ -200,161 +215,198 @@ $(document).ready(function() {
 
     var $f_nr = $('#f_nr');
 
-    //fragen-randomisierer
+    //rnd generator
     function getRandomInt() {
         var min = 0;
         var max = 121;
         return Math.floor(Math.random() * (max - min)) + min;
-    }
+    };
 
+    //return not asked question id
     function getQuestion() {
         var randInt;
-        do {
-            randInt = getRandomInt();
-            questionsDone.push(randInt);
-        } while (!questionsDone.includes(randInt));
+
+        randInt = getRandomInt();
+        if (questionsDone.has(randInt)) {
+            console.log('ID already used getting new ID')
+            getQuestion();
+        } else {
+            console.log('adding ID: ' + randInt + ' to set')
+            questionsDone.add(randInt);
+        }
 
         return randInt;
-    }
+    };
 
     //Quiz starten
     $('#start-btn').on('click', function() {
+        initGame();
+    });
 
+    function initGame() {
         //init game
+        answer = 0;
         cnt = 1;
-        korr_cnt = 0;
+        corr_cnt = 0;
+
+        $('#inner-container').show();
+        $('#start-btn').hide();
 
         //resets the buttons
-        $antwort1.removeClass("clicked");
-        $antwort2.removeClass("clicked");
-        $antwort3.removeClass("clicked");
+        $antwort1.removeClass('clicked');
+        $antwort2.removeClass('clicked');
+        $antwort3.removeClass('clicked');
 
-        $antwort1.removeClass("correct");
-        $antwort2.removeClass("correct");
-        $antwort3.removeClass("correct");
+        $antwort1.removeClass('correct');
+        $antwort2.removeClass('correct');
+        $antwort3.removeClass('correct');
 
-        $antwort1.removeClass("incorrect");
-        $antwort2.removeClass("incorrect");
-        $antwort3.removeClass("incorrect");
+        $antwort1.removeClass('incorrect');
+        $antwort2.removeClass('incorrect');
+        $antwort3.removeClass('incorrect');
+
+        if (!qNum) {
+            console.log("!qNum: " + qNum)
+        }
+        if (qNum) {
+            deactivateHL(data[qNum].LAND);
+        }
 
         //sets the question counter
-        $f_nr.html(`Nr.: ${cnt}`);
+        $f_nr.text(cnt);
+        $('#fcnt_k').text('0');
 
-        $("#progress").width(10 + "%");
+        $('#progress').width(10 + '%');
 
         nextQuestion();
-
-    })
+    };
 
     //selects the clicked answer
     $antwort1.on('click', function() {
-        $antwort1.addClass("clicked");
-        $antwort2.removeClass("clicked");
-        $antwort3.removeClass("clicked");
+        $antwort1.addClass('clicked');
+        $antwort2.removeClass('clicked');
+        $antwort3.removeClass('clicked');
         answer = 1;
-    })
+    });
 
     $antwort2.on('click', function() {
-        $antwort2.addClass("clicked");
-        $antwort1.removeClass("clicked");
-        $antwort3.removeClass("clicked");
+        $antwort2.addClass('clicked');
+        $antwort1.removeClass('clicked');
+        $antwort3.removeClass('clicked');
         answer = 2;
-    })
+    });
 
     $antwort3.on('click', function() {
-        $antwort3.addClass("clicked");
-        $antwort1.removeClass("clicked");
-        $antwort2.removeClass("clicked");
+        $antwort3.addClass('clicked');
+        $antwort1.removeClass('clicked');
+        $antwort2.removeClass('clicked');
         answer = 3;
-    })
+    });
 
 
     //Überprüfen button
-    $("#check-btn").on('click', function() {
+    $('#check-btn').on('click', function() {
         //shows next btn and hides check btn
-        $("#next-btn").toggle();
-        $("#check-btn").toggle();
+        $('#next-btn').toggle();
+        $('#check-btn').toggle();
 
         //get the id of the correct answer
         corAns = data[qNum].KORREKTE_ANTWORT;
 
         //sets the visual feedback on answer buttons
         switch (corAns) {
-            case "1":
-                $antwort1.addClass("correct");
-                $antwort2.addClass("incorrect");
-                $antwort3.addClass("incorrect");
+            case '1':
+                $antwort1.addClass('correct');
+                $antwort2.addClass('incorrect');
+                $antwort3.addClass('incorrect');
                 break;
 
-            case "2":
-                $antwort1.addClass("incorrect");
-                $antwort2.addClass("correct");
-                $antwort3.addClass("incorrect");
+            case '2':
+                $antwort1.addClass('incorrect');
+                $antwort2.addClass('correct');
+                $antwort3.addClass('incorrect');
                 break;
 
-            case "3":
-                $antwort1.addClass("incorrect");
-                $antwort2.addClass("incorrect");
-                $antwort3.addClass("correct");
+            case '3':
+                $antwort1.addClass('incorrect');
+                $antwort2.addClass('incorrect');
+                $antwort3.addClass('correct');
                 break;
         };
 
         //incements the correct answer counter
         if (answer == corAns) {
-            korr_cnt++;
-            $('#fcnt_k').text(korr_cnt);
+            corr_cnt++;
+            $('#fcnt_k').text(corr_cnt);
         };
 
-        var progWidth = cnt * 10;
-        $("#progress").width(progWidth + "%");
+
     });
 
-
     //reset the quizbox and go to next question
-    $("#next-btn").on('click', function() {
+    $('#next-btn').on('click', function() {
 
-        $antwort1.removeClass("correct");
-        $antwort2.removeClass("correct");
-        $antwort3.removeClass("correct");
+        $antwort1.removeClass('correct');
+        $antwort2.removeClass('correct');
+        $antwort3.removeClass('correct');
 
-        $antwort1.removeClass("incorrect");
-        $antwort2.removeClass("incorrect");
-        $antwort3.removeClass("incorrect");
+        $antwort1.removeClass('incorrect');
+        $antwort2.removeClass('incorrect');
+        $antwort3.removeClass('incorrect');
 
-        $antwort1.removeClass("clicked");
-        $antwort2.removeClass("clicked");
-        $antwort3.removeClass("clicked");
+        $antwort1.removeClass('clicked');
+        $antwort2.removeClass('clicked');
+        $antwort3.removeClass('clicked');
 
 
-        $("#next-btn").toggle();
-        $("#check-btn").toggle();
+        $('#next-btn').toggle();
+        $('#check-btn').toggle();
 
         deactivateHL(data[qNum].LAND);
 
         cnt++;
-        $f_nr.html(`Nr.: ${cnt}`);
+        $f_nr.html(cnt);
+        answer = 0;
 
+        var progressWidth = cnt * 10;
+        $('#progress').width(progressWidth + '%');
 
         //limit quiz to 10 questions
-        if (cnt < 11) {
+        if (cnt < qCount) {
             nextQuestion();
         } else {
-            alert("quiz-beendet");
+            callEval();
         };
-    })
-
-
+    });
 
     //sucht die nächste frage aus
     function nextQuestion() {
         qNum = getQuestion();
+
+        //console.table(data);
+
         $quiz_header.html(`${data[qNum].FRAGE}`);
         $antwort1.html(`${data[qNum].ANTWORT1}`);
         $antwort2.html(`${data[qNum].ANTWORT2}`);
         $antwort3.html(`${data[qNum].ANTWORT3}`);
 
         activateHL(data[qNum].LAND);
+    };
+
+    $('#evalmod').on('click', function() {
+        callEval();
+    })
+
+    //Evaluation modal
+    function callEval() {
+        $('#eval-mod-correct').text(corr_cnt)
+        $('#eval-modal').show();
     }
 
+    $('#end-modal-btn').on('click', function() {
+        $('#eval-modal').hide();
 
-})
+        initGame();
+    })
+
+});
