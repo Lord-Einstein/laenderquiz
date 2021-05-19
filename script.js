@@ -194,16 +194,18 @@ $(document).ready(function() {
     //#endregion
 
     //QUIZ-FUNKTIONEN
-
-    //fragenzähler
+    //Question counter
     var cnt;
-
+    //Counts the number of correct questions
     var corr_cnt;
-
+    //The max number of questions
     var qCount = 5;
 
+    //The selected answer
     var answer;
+    //The current question ID
     var qNum;
+    //Set of answered questions
     var questionsDone = new Set();
 
     //set html element shortcuts
@@ -213,7 +215,7 @@ $(document).ready(function() {
     var $antwort3 = $('#antwort3');
     var $next_btn = $('#next-btn');
 
-    var $f_nr = $('#f_nr');
+
 
     //rnd generator
     function getRandomInt() {
@@ -244,7 +246,7 @@ $(document).ready(function() {
     });
 
     function initGame() {
-        //init game
+        //init vars
         answer = 0;
         cnt = 1;
         corr_cnt = 0;
@@ -265,18 +267,22 @@ $(document).ready(function() {
         $antwort2.removeClass('incorrect');
         $antwort3.removeClass('incorrect');
 
-        if (!qNum) {
-            console.log("!qNum: " + qNum)
-        }
         if (qNum) {
             deactivateHL(data[qNum].LAND);
         }
 
-        //sets the question counter
-        $f_nr.text(cnt);
-        $('#fcnt_k').text('0');
+        //inits the question counter
+        $('#maxQuestion').text(qCount);
+        $('#qNumber').text(cnt);
+        $('#corr_qCnt').text('0');
 
-        $('#progress').width(10 + '%');
+
+
+
+        $('#progress').animate({
+            width: (100 / qCount) + '%'
+        });
+
 
         nextQuestion();
     };
@@ -337,7 +343,7 @@ $(document).ready(function() {
         //incements the correct answer counter
         if (answer == corAns) {
             corr_cnt++;
-            $('#fcnt_k').text(corr_cnt);
+            $('#corr_qCnt').text(corr_cnt);
         };
 
 
@@ -365,21 +371,18 @@ $(document).ready(function() {
         deactivateHL(data[qNum].LAND);
 
         cnt++;
-        $f_nr.html(cnt);
         answer = 0;
 
-        var progressWidth = cnt * 10;
-        $('#progress').width(progressWidth + '%');
 
         //limit quiz to 10 questions
-        if (cnt < qCount) {
+        if (cnt <= qCount) {
             nextQuestion();
         } else {
             callEval();
         };
     });
 
-    //sucht die nächste frage aus
+    //selects the next question
     function nextQuestion() {
         qNum = getQuestion();
 
@@ -391,20 +394,29 @@ $(document).ready(function() {
         $antwort3.html(`${data[qNum].ANTWORT3}`);
 
         activateHL(data[qNum].LAND);
+
+        var progressWidth = cnt * (100 / qCount);
+        $('#progress').animate({
+            width: progressWidth + '%'
+        });
+
+        $('#qNumber').html(cnt);
     };
 
+    //test button to call evaluation popup
     $('#evalmod').on('click', function() {
         callEval();
     })
 
-    //Evaluation modal
+    //Evaluation popup
     function callEval() {
         $('#eval-mod-correct').text(corr_cnt)
-        $('#eval-modal').show();
+
+        $('#eval-modal').fadeIn('2000');
     }
 
     $('#end-modal-btn').on('click', function() {
-        $('#eval-modal').hide();
+        $('#eval-modal').fadeOut('2000');
 
         initGame();
     })

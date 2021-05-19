@@ -47,9 +47,11 @@
 
     <div class="modal" id="eval-modal">
         <div class="modal-content" id="eval-content">
-            <pre>Herzlichen Glückwunsch
-Du hast <span id="eval-mod-correct">0</span> Fragen richtig beantwortet.
-            </pre>
+            <div>Herzlichen Glückwunsch<br> Du hast <span id="eval-mod-correct">0</span> Fragen richtig beantwortet.
+            </div>
+
+            <a class="btn secondary" href="index.html">Startseite</a>
+
             <div id="end-modal-btn" class="btn secondary">Nochmal Spielen</div>
         </div>
     </div>
@@ -65,11 +67,11 @@ Du hast <span id="eval-mod-correct">0</span> Fragen richtig beantwortet.
             <div id="inner-container" style="display: none">
                 <div class="container primary" id="progress-container">
                     <div id="progressbar">
-                        <div id=progress>Frage &nbsp;<span id="f_nr"> </span></div>
+                        <div id=progress>Frage &nbsp;<span id="qNumber"> </span> / <span id="maxQuestion"></span></div>
                     </div>
 
                     <div id="progress-lable">
-                        <span>Richtige Fragen: &nbsp;<span id="fcnt_k">0</span></span>
+                        <span>Richtige Fragen: &nbsp;<span id="corr_qCnt">0</span></span>
                     </div>
                 </div>
 
@@ -78,9 +80,9 @@ Du hast <span id="eval-mod-correct">0</span> Fragen richtig beantwortet.
 
                 <div class="container primary" id="quiz-box">
                     <div id="ant-container">
-                        <div class="btn secondary" id="antwort1">Antwort1</div>
-                        <div class="btn secondary" id="antwort2">Antwort2</div>
-                        <div class="btn secondary" id="antwort3">Antwort3</div>
+                        <div class="btn secondary ans-btn" id="antwort1">Antwort1</div>
+                        <div class="btn secondary ans-btn" id="antwort2">Antwort2</div>
+                        <div class="btn secondary ans-btn" id="antwort3">Antwort3</div>
                     </div>
                 </div>
                 <div class="container primary" id="next-container">
