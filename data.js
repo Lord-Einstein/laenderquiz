@@ -863,9 +863,9 @@ data = [{
         "LAND": "RO",
         "FRAGE": "Was wird beim traditionellen Sorcova, der am 1. Januar stattfindet, praktiziert?",
         "FRAGE_TYP": "MC",
-        "ANTWORT1": "Kinder schlagen ihren Eltern oder auch Nachbarn und Verwandten leicht mit einem künstlichen Blumenzweig auf den Rücken.",
-        "ANTWORT2": "Die Weihnachtsbäume von Heiligabend werden zu großen Haufen zusammengestellt und anschließend verbrannt.",
-        "ANTWORT3": "Selbstgebastelte Sterne werden in die Fenster der Häuser gehangen, um das neue Jahr willkommen zu heißen.",
+        "ANTWORT1": "Kinder verteilen leichte Schläge mit  künstlichen Blumenzweigen",
+        "ANTWORT2": "Verbrennen der Weihnachtsbäume auf einem großen Haufen",
+        "ANTWORT3": "Aufhängen gebastelter Sterne zur Begrüßen des neuen Jahres",
         "KORREKTE_ANTWORT": "1"
     },
     {

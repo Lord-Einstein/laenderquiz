@@ -73,7 +73,7 @@ $(document).ready(function() {
 
     // Configure series
     var polygonTemplate = polygonSeries.mapPolygons.template;
-    polygonTemplate.tooltipText = '{name} : {id}';
+    polygonTemplate.tooltipText = '{name}';
     polygonTemplate.stroke = chart.colors.getIndex(0);
     polygonTemplate.properties.strokeWidth = 1;
     polygonTemplate.fill = chart.colors.getIndex(2);
@@ -251,7 +251,7 @@ $(document).ready(function() {
         cnt = 1;
         corr_cnt = 0;
 
-        $('#inner-container').show();
+        $('#inner-container').fadeIn();
         $('#start-btn').hide();
 
         //resets the buttons
@@ -276,13 +276,9 @@ $(document).ready(function() {
         $('#qNumber').text(cnt);
         $('#corr_qCnt').text('0');
 
-
-
-
         $('#progress').animate({
             width: (100 / qCount) + '%'
         });
-
 
         nextQuestion();
     };
@@ -313,8 +309,9 @@ $(document).ready(function() {
     //Überprüfen button
     $('#check-btn').on('click', function() {
         //shows next btn and hides check btn
-        $('#next-btn').toggle();
         $('#check-btn').toggle();
+        $('#next-btn').toggle();
+
 
         //get the id of the correct answer
         corAns = data[qNum].KORREKTE_ANTWORT;
@@ -420,5 +417,11 @@ $(document).ready(function() {
 
         initGame();
     })
+
+    $('#replace-dom').on('click', function() {
+        location.assign("rewards.html");
+    })
+
+
 
 });
