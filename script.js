@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     //#region Init map
 
@@ -80,7 +80,7 @@ $(document).ready(function() {
 
 
     //Select countries
-    polygonSeries.include = ['AD', 'AL', 'AT', 'BA', 'BE', 'BG', 'BY', 'CH', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU', 'IE', 'IS', 'IT', 'LT', 'LU', 'LV', 'MD', 'ME', 'MK', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'RU', 'SE', 'SI', 'SK', 'TR', 'UA', 'XK', '', ];
+    polygonSeries.include = ['AD', 'AL', 'AT', 'BA', 'BE', 'BG', 'BY', 'CH', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU', 'IE', 'IS', 'IT', 'LT', 'LU', 'LV', 'MD', 'ME', 'MK', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'RU', 'SE', 'SI', 'SK', 'TR', 'UA', 'XK', '',];
 
     // Create hover state, set fill and stroke color, set float
     var hoverState = polygonTemplate.states.create('hover');
@@ -101,7 +101,7 @@ $(document).ready(function() {
     hoverShadow.dy = 4;
 
     //Fix hover outlines
-    polygonSeries.mapPolygons.template.events.on('over', function(event) {
+    polygonSeries.mapPolygons.template.events.on('over', function (event) {
         event.target.zIndex = Number.MAX_VALUE;
         event.target.toFront();
     });
@@ -165,33 +165,62 @@ $(document).ready(function() {
     };
     //#endregion
 
-
     //#region map buttons
 
     //Buttons
     //Toggle germany
-    $('#DEU').on('click', function() {
+    $('#DEU').on('click', function () {
         polygonSeries.getPolygonById('DE').isActive = !polygonSeries.getPolygonById('DE').isActive;
     });
 
-    $('#toggleHL').on('click', function() {
+    $('#toggleHL').on('click', function () {
         toggleHL('DE');
     });
 
-    $('#activateHL').on('click', function() {
+    $('#activateHL').on('click', function () {
         activateHL('DE');
     });
 
-    $('#deactivateHL').on('click', function() {
+    $('#deactivateHL').on('click', function () {
         deactivateHL('DE');
     });
 
-    $('#toggleMap').on('click', function() {
+    $('#toggleMap').on('click', function () {
         $('#map').toggle();
     });
 
 
     //#endregion
+
+
+
+    //Attach Debug Btns
+    $('#btn-bar').append(`
+    <!--
+        <div class="btn-map" id="DEU">Deutschland</div>
+        <div class="btn-map" id="toggleHL">Toggle Highlight</div>
+        <div class="btn-map" id="activateHL">Activate Highlight</div>
+        <div class="btn-map" id="deactivateHL">Deactivate Highlight</div>
+        
+        <div class="btn-map" id="replace-dom">Test Replace</div>
+        -->
+        <div class="btn-map" id="toggleMap">Toggle Map</div>
+        <div class="btn-map" id="evalmod">Eval Modal</div>
+        <div class="btn-map" id="add-reward">Add Reward</div>
+        <div class="btn-map" id="set-cookie">Set Cookie</div>
+        <div class="btn-map" id="read-cookie">Read Cookie</div>
+        <div class="btn-map" id="delete-cookie">Delete Cookie</div>
+
+        <div class="btn-map" id="debug-btn">Debug modal</div>
+
+        <div class="modal" id="debug-modal">
+            <div class="modal-content" id="debug-window">
+           
+            </div>
+        </div>
+    `);
+
+
 
     //QUIZ-FUNKTIONEN
     //Question counter
@@ -205,33 +234,89 @@ $(document).ready(function() {
     var answer;
     //The current question ID
     var qNum;
+
     //Set of answered questions
     var questionsDone = new Set();
 
+    var rewardsGranted = new Set();
+    var rewardCnt = 0;
+
     //set html element shortcuts
     var $quiz_header = $('#quiz-header')
-    var $antwort1 = $('#antwort1');
-    var $antwort2 = $('#antwort2');
-    var $antwort3 = $('#antwort3');
+    var $answer1 = $('#antwort1');
+    var $answer2 = $('#antwort2');
+    var $answer3 = $('#antwort3');
     var $next_btn = $('#next-btn');
 
+    //#region Buttons
 
+    //Quiz starten
+    $('#start-btn').on('click', function () {
+        initGame();
+    });
+
+    //selects the clicked answer
+    $answer1.on('click', function () {
+        $answer1.addClass('clicked');
+        $answer2.removeClass('clicked');
+        $answer3.removeClass('clicked');
+        answer = 1;
+    });
+
+    $answer2.on('click', function () {
+        $answer2.addClass('clicked');
+        $answer1.removeClass('clicked');
+        $answer3.removeClass('clicked');
+        answer = 2;
+    });
+
+    $answer3.on('click', function () {
+        $answer3.addClass('clicked');
+        $answer1.removeClass('clicked');
+        $answer2.removeClass('clicked');
+        answer = 3;
+    });
+
+
+    //Überprüfen button
+    $('#check-btn').on('click', function () {
+        checkBtn();
+    });
+
+
+    //reset the quizbox and go to next question
+    $('#next-btn').on('click', function () {
+        nextBtn();
+    });
+
+    //test button to call evaluation popup
+    $('#evalmod').on('click', function () {
+        callEval();
+    });
+
+    $('#end-modal-btn').on('click', function () {
+        $('#eval-modal').fadeOut('2000');
+
+        initGame();
+    });
+
+    //#endregion
 
     //rnd generator
-    function getRandomInt() {
-        var min = 0;
-        var max = 121;
+    function getRandomInt(min = 0, max = 121) {
         return Math.floor(Math.random() * (max - min)) + min;
     };
 
     //return not asked question id
     function getQuestion() {
-        var randInt;
+        if (rewardsGranted.size >= 121)
+            return 0;
 
-        randInt = getRandomInt();
+        var randInt = getRandomInt();
+
         if (questionsDone.has(randInt)) {
             console.log('ID already used getting new ID')
-            getQuestion();
+            randInt = getQuestion();
         } else {
             console.log('adding ID: ' + randInt + ' to set')
             questionsDone.add(randInt);
@@ -240,10 +325,6 @@ $(document).ready(function() {
         return randInt;
     };
 
-    //Quiz starten
-    $('#start-btn').on('click', function() {
-        initGame();
-    });
 
     function initGame() {
         //init vars
@@ -255,17 +336,17 @@ $(document).ready(function() {
         $('#start-btn').hide();
 
         //resets the buttons
-        $antwort1.removeClass('clicked');
-        $antwort2.removeClass('clicked');
-        $antwort3.removeClass('clicked');
+        $answer1.removeClass('clicked');
+        $answer2.removeClass('clicked');
+        $answer3.removeClass('clicked');
 
-        $antwort1.removeClass('correct');
-        $antwort2.removeClass('correct');
-        $antwort3.removeClass('correct');
+        $answer1.removeClass('correct');
+        $answer2.removeClass('correct');
+        $answer3.removeClass('correct');
 
-        $antwort1.removeClass('incorrect');
-        $antwort2.removeClass('incorrect');
-        $antwort3.removeClass('incorrect');
+        $answer1.removeClass('incorrect');
+        $answer2.removeClass('incorrect');
+        $answer3.removeClass('incorrect');
 
         if (qNum) {
             deactivateHL(data[qNum].LAND);
@@ -283,35 +364,10 @@ $(document).ready(function() {
         nextQuestion();
     };
 
-    //selects the clicked answer
-    $antwort1.on('click', function() {
-        $antwort1.addClass('clicked');
-        $antwort2.removeClass('clicked');
-        $antwort3.removeClass('clicked');
-        answer = 1;
-    });
-
-    $antwort2.on('click', function() {
-        $antwort2.addClass('clicked');
-        $antwort1.removeClass('clicked');
-        $antwort3.removeClass('clicked');
-        answer = 2;
-    });
-
-    $antwort3.on('click', function() {
-        $antwort3.addClass('clicked');
-        $antwort1.removeClass('clicked');
-        $antwort2.removeClass('clicked');
-        answer = 3;
-    });
-
-
-    //Überprüfen button
-    $('#check-btn').on('click', function() {
+    function checkBtn() {
         //shows next btn and hides check btn
         $('#check-btn').toggle();
         $('#next-btn').toggle();
-
 
         //get the id of the correct answer
         corAns = data[qNum].KORREKTE_ANTWORT;
@@ -319,21 +375,21 @@ $(document).ready(function() {
         //sets the visual feedback on answer buttons
         switch (corAns) {
             case '1':
-                $antwort1.addClass('correct');
-                $antwort2.addClass('incorrect');
-                $antwort3.addClass('incorrect');
+                $answer1.addClass('correct');
+                $answer2.addClass('incorrect');
+                $answer3.addClass('incorrect');
                 break;
 
             case '2':
-                $antwort1.addClass('incorrect');
-                $antwort2.addClass('correct');
-                $antwort3.addClass('incorrect');
+                $answer1.addClass('incorrect');
+                $answer2.addClass('correct');
+                $answer3.addClass('incorrect');
                 break;
 
             case '3':
-                $antwort1.addClass('incorrect');
-                $antwort2.addClass('incorrect');
-                $antwort3.addClass('correct');
+                $answer1.addClass('incorrect');
+                $answer2.addClass('incorrect');
+                $answer3.addClass('correct');
                 break;
         };
 
@@ -343,23 +399,21 @@ $(document).ready(function() {
             $('#corr_qCnt').text(corr_cnt);
         };
 
+    }
 
-    });
+    function nextBtn() {
 
-    //reset the quizbox and go to next question
-    $('#next-btn').on('click', function() {
+        $answer1.removeClass('correct');
+        $answer2.removeClass('correct');
+        $answer3.removeClass('correct');
 
-        $antwort1.removeClass('correct');
-        $antwort2.removeClass('correct');
-        $antwort3.removeClass('correct');
+        $answer1.removeClass('incorrect');
+        $answer2.removeClass('incorrect');
+        $answer3.removeClass('incorrect');
 
-        $antwort1.removeClass('incorrect');
-        $antwort2.removeClass('incorrect');
-        $antwort3.removeClass('incorrect');
-
-        $antwort1.removeClass('clicked');
-        $antwort2.removeClass('clicked');
-        $antwort3.removeClass('clicked');
+        $answer1.removeClass('clicked');
+        $answer2.removeClass('clicked');
+        $answer3.removeClass('clicked');
 
 
         $('#next-btn').toggle();
@@ -370,14 +424,13 @@ $(document).ready(function() {
         cnt++;
         answer = 0;
 
-
         //limit quiz to 10 questions
         if (cnt <= qCount) {
             nextQuestion();
         } else {
             callEval();
-        };
-    });
+        }
+    }
 
     //selects the next question
     function nextQuestion() {
@@ -386,9 +439,9 @@ $(document).ready(function() {
         //console.table(data);
 
         $quiz_header.html(`${data[qNum].FRAGE}`);
-        $antwort1.html(`${data[qNum].ANTWORT1}`);
-        $antwort2.html(`${data[qNum].ANTWORT2}`);
-        $antwort3.html(`${data[qNum].ANTWORT3}`);
+        $answer1.html(`${data[qNum].ANTWORT1}`);
+        $answer2.html(`${data[qNum].ANTWORT2}`);
+        $answer3.html(`${data[qNum].ANTWORT3}`);
 
         activateHL(data[qNum].LAND);
 
@@ -400,28 +453,136 @@ $(document).ready(function() {
         $('#qNumber').html(cnt);
     };
 
-    //test button to call evaluation popup
-    $('#evalmod').on('click', function() {
-        callEval();
-    })
+
 
     //Evaluation popup
     function callEval() {
-        $('#eval-mod-correct').text(corr_cnt)
-
+        addRewardItem();
+        $('#eval-mod-correct').text(corr_cnt);
         $('#eval-modal').fadeIn('2000');
+        setCookie();
+    };
+
+    //return not asked question id
+    function getReward() {
+
+        if (rewardsGranted.size >= 12)
+            return 0;
+
+        var randInt = getRandomInt(1, 13);
+
+        if (rewardsGranted.has(randInt)) {
+            console.log('Reward already used getting new Reward');
+            randInt = getReward();
+        } else {
+            console.log('adding RewardID: ' + randInt + ' to set')
+            rewardsGranted.add(randInt);
+        }
+
+        return randInt;
     }
 
-    $('#end-modal-btn').on('click', function() {
-        $('#eval-modal').fadeOut('2000');
+    function addRewardItem() {
+        var rewardID = getReward();
 
-        initGame();
+        console.log('Reward ID = ' + rewardID);
+
+        if (rewardID == 0) {
+            console.log("Max reached");
+            $('#reward-container')
+                .append(`<div class="table-item">       
+                <div class="table-text">
+                empty</div></div>`);
+        } else {
+            $('#reward-container')
+                .append(`<div class="table-item">
+            <img src="./images/${img[rewardID].img_name}">
+            <div class="table-text">
+            ${img[rewardID].description}
+            </div></div>`);
+        }
+
+    }
+
+
+    //#region Cookie Funktions
+
+    function setCookie() {
+        var expiryDate = "; expires=Fri, 31 Dec 2021 23:59:59 UTC;";
+        var cPath = " path=/";
+
+        var x;
+
+        obj = {
+            rewards: Array.from(rewardsGranted),
+        }
+        x = JSON.stringify(obj) + expiryDate + cPath;
+        document.cookie = x;
+    }
+
+    function readCookie() {
+        var cookie = document.cookie;
+
+        var mySet = new Set(JSON.parse(cookie).rewards)
+        console.log(mySet)
+        return mySet;
+    }
+
+    function deleteCookie() {
+        document.cookie = " = ; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+
+    //#endregion
+
+
+
+    //#region Debugging
+    $('#set-cookie').on('click', function () {
+
+        setCookie();
+
+        debug("cookie set")
     })
 
-    $('#replace-dom').on('click', function() {
+    $('#read-cookie').on('click', function () {
+        debug(JSON.stringify(readCookie()));
+    })
+
+    $('#delete-cookie').on('click', function () {
+        deleteCookie();
+        debug("cookie deleted")
+    })
+
+    $('#replace-dom').on('click', function () {
         location.assign("rewards.html");
+    });
+
+    $('#add-item').on('click', function () {
+        addRewardItem();
     })
 
+    $('#add-reward').on('click', function () {
+        getReward();
+        debug("added reward")
+    })
 
+    //test button to call evaluation popup
+    $('#debug-btn').on('click', function () {
+        $('#debug-modal').show();
+    });
+
+    function debug(text) {
+        $('#debug-window').text(text)
+        $('#debug-modal').show();
+    }
+
+    window.onclick = function (event) {
+        if (event.target == document.getElementById("debug-modal")) {
+            $('#debug-modal').hide();
+        }
+    }
+
+
+    //#endregion
 
 });

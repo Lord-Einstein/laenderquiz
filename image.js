@@ -1,0 +1,88 @@
+img = [
+    {
+        "ID": "0",
+        "country": "non",
+        "img_name": "undefined",
+        "path": "images/",
+        "description": "undefined",
+    },
+    {
+        "ID": "1",
+        "country": "Albania",
+        "img_name": "Albanien_Kultur.png",
+        "path": "images/",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    }, {
+        "ID": "2",
+        "country": "Albania",
+        "img_name": "Albanien_Kultur2.png",
+        "path": "images/",
+        "description": "Albanische traditionelle Laute (Musikinstrument)",
+    }, {
+        "ID": "3",
+        "country": "Albania",
+        "img_name": "Albanien.png",
+        "path": "images/",
+        "description": "Albanische Volkstracht",
+    }, {
+        "ID": "4",
+        "country": "Liechtenstein",
+        "img_name": "Liechtenstein_Essen.png",
+        "path": "images/",
+        "description": "Typische Liechtensteiner Gerichte: Reisgerichte",
+    }, {
+        "ID": "5",
+        "country": "Liechtenstein",
+        "img_name": "Liechtenstein_Kultur.png",
+        "path": "images/",
+        "description": "Typischer Blumenkranz für Volksfeste in Lichtenstein",
+    }, {
+        "ID": "6",
+        "country": "Liechtenstein",
+        "img_name": "Liechtenstein.png",
+        "path": "images/",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    }, {
+        "ID": "7",
+        "country": "Monaco",
+        "img_name": "Monaco_Kultur1.png",
+        "path": "images/",
+        "description": "Traditioneller Hut in Monaco",
+    }, {
+        "ID": "8",
+        "country": "Monaco",
+        "img_name": "Monaco_Kultur2.png",
+        "path": "images/",
+        "description": "Merkmal für Monaco: Luxusartikel",
+    }, {
+        "ID": "9",
+        "country": "Monaco",
+        "img_name": "Monaco.png",
+        "path": "images/",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    }, {
+        "ID": "10",
+        "country": "Ukrain",
+        "img_name": "Ukraine_Kultur1.png",
+        "path": "images/",
+        "description": "Traditionelle Ukrainische Volksschuhe",
+    }, {
+        "ID": "11",
+        "country": "Ukrain",
+        "img_name": "Ukraine_Kultur2.png",
+        "path": "images/",
+        "description": "Typischer Blumenstrauß für Volksfeste in der Ukraine",
+    }, {
+        "ID": "12",
+        "country": "Ukrain",
+        "img_name": "Ukraine.png",
+        "path": "images/",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    }, {
+        "ID": "13",
+        "country": "non",
+        "img_name": "undefined",
+        "path": "images/",
+        "description": "undefined",
+    },
+]
