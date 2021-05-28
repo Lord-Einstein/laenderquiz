@@ -228,7 +228,7 @@ $(document).ready(function () {
     //Counts the number of correct questions
     var corr_cnt;
     //The max number of questions
-    var qCount = 5;
+    var qCount = 2;
 
     //The selected answer
     var answer;
@@ -238,7 +238,7 @@ $(document).ready(function () {
     //Set of answered questions
     var questionsDone = new Set();
 
-    var rewardsGranted = new Set();
+    var rewardsGranted = new Set(readCookie());
     var rewardCnt = 0;
 
     //set html element shortcuts
@@ -247,6 +247,14 @@ $(document).ready(function () {
     var $answer2 = $('#antwort2');
     var $answer3 = $('#antwort3');
     var $next_btn = $('#next-btn');
+
+    if (readPath() == "rewards.html") {
+        if (rewardsGranted.size != 0) {
+            for (reward of rewardsGranted) {
+                addRewardItem(reward)
+            }
+        }
+    }
 
     //#region Buttons
 
@@ -295,8 +303,7 @@ $(document).ready(function () {
     });
 
     $('#end-modal-btn').on('click', function () {
-        $('#eval-modal').fadeOut('2000');
-
+        hideEval();
         initGame();
     });
 
@@ -453,8 +460,6 @@ $(document).ready(function () {
         $('#qNumber').html(cnt);
     };
 
-
-
     //Evaluation popup
     function callEval() {
         addRewardItem();
@@ -462,6 +467,12 @@ $(document).ready(function () {
         $('#eval-modal').fadeIn('2000');
         setCookie();
     };
+
+    function hideEval() {
+        $.when($('#eval-modal').fadeOut(500)).then(function () {
+            $('#reward-container').empty()
+        });
+    }
 
     //return not asked question id
     function getReward() {
@@ -482,8 +493,7 @@ $(document).ready(function () {
         return randInt;
     }
 
-    function addRewardItem() {
-        var rewardID = getReward();
+    function addRewardItem(rewardID = getReward()) {
 
         console.log('Reward ID = ' + rewardID);
 
@@ -518,18 +528,30 @@ $(document).ready(function () {
         }
         x = JSON.stringify(obj) + expiryDate + cPath;
         document.cookie = x;
+        console.log("cookie set")
     }
 
     function readCookie() {
         var cookie = document.cookie;
 
-        var mySet = new Set(JSON.parse(cookie).rewards)
-        console.log(mySet)
-        return mySet;
+        console.log("cookie read")
+
+        if (cookie != "") {
+            var mySet = new Set(JSON.parse(cookie).rewards)
+            console.log(mySet)
+            return mySet;
+        }
     }
 
     function deleteCookie() {
-        document.cookie = " = ; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    }
+
+    function readPath() {
+        var path = window.location.pathname;
+        var page = path.split("/").pop();
+        console.log(page);
+        return page;
     }
 
     //#endregion

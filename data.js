@@ -73,14 +73,14 @@ data = [{
     "FRAGE": "Welches Land ist das?",
     "FRAGE_TYP": "MC",
     "ANTWORT1": "Polen",
-    "ANTWORT2": "England",
+    "ANTWORT2": "Großbritannien",
     "ANTWORT3": "Frankreich",
     "KORREKTE_ANTWORT": "2"
 },
 {
     "ID": "8",
     "LAND": "GB",
-    "FRAGE": "Wie heißt die Hauptstadt von England?",
+    "FRAGE": "Wie heißt die Hauptstadt von Großbritannien?",
     "FRAGE_TYP": "MC",
     "ANTWORT1": "London",
     "ANTWORT2": "Herford",
@@ -90,7 +90,7 @@ data = [{
 {
     "ID": "9",
     "LAND": "GB",
-    "FRAGE": "Welches Getränk wird mit England assoziiert?",
+    "FRAGE": "Welches Getränk wird mit Großbritannien assoziiert?",
     "FRAGE_TYP": "MC",
     "ANTWORT1": "Kakao",
     "ANTWORT2": "Tee",
@@ -100,7 +100,7 @@ data = [{
 {
     "ID": "10",
     "LAND": "GB",
-    "FRAGE": "Welchen Namen trägt die aktuelle Queen Englands?",
+    "FRAGE": "Welchen Namen trägt die aktuelle Queen Großbritannien?",
     "FRAGE_TYP": "MC",
     "ANTWORT1": "Elisabeth I.",
     "ANTWORT2": "Elisabeth II.",
