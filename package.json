@@ -1,0 +1,16 @@
+{
+  "name": "laenderquiz",
+  "version": "1.0.0",
+  "description": "webbased interactive geography quiz",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.hsrw.eu/martin.huecklekemkes/laenderquiz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

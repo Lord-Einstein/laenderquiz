@@ -195,6 +195,7 @@ $(document).ready(function () {
 
 
     //Attach Debug Btns
+    /*
     $('#btn-bar').append(`
     <!--
         <div class="btn-map" id="DEU">Deutschland</div>
@@ -219,7 +220,7 @@ $(document).ready(function () {
             </div>
         </div>
     `);
-
+    */
 
 
     //QUIZ-FUNKTIONEN
