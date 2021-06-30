@@ -229,7 +229,7 @@ $(document).ready(function () {
     //Counts the number of correct questions
     var corr_cnt;
     //The max number of questions
-    var qCount = 2;
+    var qCount = 8;
 
     //The selected answer
     var answer;
