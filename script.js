@@ -481,7 +481,7 @@ $(document).ready(function () {
         if (rewardsGranted.size >= 12)
             return 0;
 
-        var randInt = getRandomInt(1, 13);
+        var randInt = getRandomInt(1, 12);
 
         if (rewardsGranted.has(randInt)) {
             console.log('Reward already used getting new Reward');

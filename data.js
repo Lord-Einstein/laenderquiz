@@ -285,7 +285,7 @@ data = [{
     "ANTWORT1": "Sardana",
     "ANTWORT2": "Flamenco",
     "ANTWORT3": "Patata",
-    "KORREKTE_ANTWORT": "3"
+    "KORREKTE_ANTWORT": "2"
 },
 {
     "ID": "29",

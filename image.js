@@ -1,7 +1,7 @@
 img = [
     {
         "ID": "0",
-        "country": "non",
+        "country": "no",
         "img_name": "undefined",
         "path": "images/",
         "description": "undefined",
