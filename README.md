@@ -7,4 +7,4 @@ update live page:
 then run:
 - npm run deploy
 
-https://lord-einstein.github.io/laenderquiz/index.html
+https://martin-huecklekemkes.github.io/laenderquiz/index.html
